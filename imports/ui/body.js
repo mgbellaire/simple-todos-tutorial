@@ -9,3 +9,23 @@ Template.body.helpers({
     return Tasks.find({});
   },
 });
+
+Template.body.events({
+  'submit .new-task' () {
+    // Prevent default browser form submit.
+    event.preventDefault();
+
+    // Get value from form element.
+    const target = event.target;
+    const text = target.text.value;
+
+    // Insert the new task into the collection.
+    Tasks.insert({
+      text,
+      createdAt: new Date(),
+    });
+
+    // Clear the form.
+    target.text.value = '';
+  },
+});
